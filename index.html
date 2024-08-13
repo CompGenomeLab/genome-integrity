@@ -44,16 +44,18 @@
 									<br>
 									<span style="font-size: smaller;">4th - 6th September 2024</span>
 								</h1>
-								<!-- 	Here is an image where you can put a picture of you. 
-									You can change the width and height attributes below to change how large
-									your image is.
 
-									Try adding "border-radius: 50%;" to the style attribute.
-								-->
-								<div style="display: flex; justify-content: center; margin-bottom: 20px;">
-									<img src="images/embo_yi.png" style="object-fit: cover; width: 30%; height: 120px;">
-									<img src="images/su.png" style="object-fit: contain; width: 30%; height: 120px;">
-								</div>
+								<!-- Here is an image that is displayed well on both desktop and mobile -->
+																<style>
+									.responsive-img {
+										width: 100%;
+										max-width: 600px; /* Adjust the max-width as needed */
+										height: auto;
+									}
+								</style>
+								
+								<img src="images/su-embo-banner.png" alt="Image description" class="responsive-img">
+
 								<p>
 									Sabanci University <br> Istanbul, Türkiye
 								</p>
@@ -98,59 +100,277 @@
 						<!-- 	Here is the "About Me" card. Note it has the id "about", which the previous 
 							button links to.
 						-->
-						<article id="schedule">
-							<h2>Conference Schedule</h2>
-							<h3>September 4th, 2024</h3>
-							<p>08:40-09:00 Registration</p>
-							<p>09:00-09:10 Opening (Host: Ogün Adebali)</p>
-							<h4>Session 1: Telomeres and Telomere-Associated DNA Repair</h4>
-							<p>09:10 – 09:40: Jacqueline Jacobs - Identification of key regulators of DDR signaling and DNA repair at deprotected telomeres</p>
-							<p>09:50 - 10:20: TBA</p>
-							<p>10:30-11:00: Coffee break</p>
-							<h4>Session 2: DNA Motors</h4>
-							<p>11:00 - 11:30: Algirdas Toleikis - Single-molecule studies of DNA motors</p>
-							<p>11:40 – 13:00: Lunch Break</p>
-							<h4>Session 3: DNA Repair and Regulation</h4>
-							<p>13:00 - 13:30: Andres Dominguez-Calvo (Pablo Huertas’s Lab Member) - The molecular architecture of the DNA repair foci: untangling the DNA resection step</p>
-							<p>13:40 - 14:10: Rebecca Dagg (Madalena Tarsounas’s Lab Member) - Title TBA</p>
-							<p>14:20 - 14:50: Madalena Tarsounas - TOP1 regulates responses to PARP inhibitors</p>
-							<p>15:00 - 15:20: Coffee Break</p>
-							<h4>Session 4: Genome Stability and Replication Stress</h4>
-							<p>15:20 - 15:50: Felicity Feiser (Lumir Krejci’s Lab Member) - RAD51 cancer-associated mutant is defective in D-loop mediated fork restart and DSB repair</p>
-							<p>16:00 - 16:30: Lumir Krejci - Role of HR in replication stress</p>
-							<p>16:40 - 17:10: Marco Grillo (Daniele Fachinetti’s Lab Member) - Deciphering the causes and consequences of centromere aberrations in human cells</p>
-							<p>19:00 – 20:00: Dinner</p>
-							<h3>September 5th, 2024</h3>
-							<p>07:30 Bus to Karakoy</p>
-							<h4>Session 5: 3D Genome and Chromatin Dynamics in DDR</h4>
-							<p>09:00 - 09:30: Matthias Bochtler - The nucleotide pool in genome and epigenome integrity</p>
-							<p>09:40 - 10:10: Dennis Kappei - ZBTB48 causes persistent chromatin bridges in ALT-positive cells</p>
-							<p>10:20 - 10:50 Coffee Break</p>
-							<p>10:50 - 11:20: Daniel González Acosta - A role for cohesin in modulating fork plasticity and 3D genome architecture in response to replication stress</p>
-							<p>11:30 - 12:00: Veysel Oğulcan Kaya (Ogün Adebali’s Lab member) - 3D Genome reorganization during DNA damage response to UV</p>
-							<p>12:10 – 13:20: Lunch Break</p>
-							<h4>Session 6: RNA Regulation and DDR</h4>
-							<p>13:20 - 13:50: Sofia Francia (Fabrizio D'Adda Di Fagagna’s Lab Member) - DROSHA and DICER RNA products control BMI1-dependent transcriptional repression at DNA double-strand break</p>
-							<p>14:00 - 14:30: George A. Garinis - DNA damage, transcription stress and innate immune signaling in health and disease</p>
-							<p>14:40 - 18:00: Hagia Sophia tour, Sultanahmet Square</p>
-							<p>19:00 – 22:00: Gala Dinner</p>
-							<p>23:00: Bus back to campus</p>
-							<h3>September 6th, 2024</h3>
-							<h4>Session 7: Cell Cycle Regulation and Signaling</h4>
-							<p>09:00 - 09:30: Chuan Ku - Genomics and epigenomics of haplodiplontic life cycling</p>
-							<p>09:40 - 10:10: Ayşe Koca Çaydaşı - Mechanisms that assure correct chromosome segregation in budding yeast.</p>
-							<p>10:20 - 11:30: Coffee break and planning for the upcoming meeting</p>
-							<p>11:30 - 12:00: Mariam Said Fawzy Mohamed Huda (Ayse Koca Caydasi’s Lab Member) - Dynamic Spatial Control of Mitotic Exit: Investigating PI3,5P2-Mediated Asymmetry in Budding Yeast</p>
-							<p>12:10 - 12:40: Joao Matos - Unexpected roles of Holliday junctions during meiosis</p>
-							<p>12:50-13.00: Concluding comments and departures</p>
-						</article>
+						<style>
+							#schedule p, #schedule h4 {
+								line-height: 1.5; /* Adjust this value as needed */
+								margin: 0.5em 0; /* Adjust the margin to control spacing between elements */
+							}
+						</style>
+						<style>
+							.speaker-name {
+								color: #a12020; /* Kırmızı tonu */
+								font-weight: bold; /* İsteğe bağlı: Konuşmacı adını kalın yapar */
+							}
+						</style>
+<article id="schedule">
+    
+								<h2>Conference Schedule</h2>
+				
+				<details>
+					<style>
+						.spacer {
+							height: 20px; /* Adjust the height as needed */
+						}
+						</style>
 
+					<summary><strong>Day 1: September 4th, 2024 <span class="sabanci">Venue: Sabancı University Tuzla Campus</span></strong></summary>
+					<div class="spacer"></div>
+					<p class="meal">08.00 - 08.45: Breakfast at Campus Cafeteria</p>
+					<p class="registration">08.45 - 09.00: Registration </p>
+					<p class="conclusion">09.00 - 09.10: Opening (Host: <span class="speaker-name">Ogün Adebali</span>)</p>
+					
+					
+					
+					<!-- Add this spacer before the specified line -->
+					<div class="spacer"></div>
+					<h4>Session 1: DNA Repair and Regulation </h4>
+					<table class="transparent-table">
+						<tr>
+							<td>09.10 - 09.40</td>
+							<td>TOP1 regulates responses to PARP inhibitors </td>
+							<td><span class="speaker-name">Madalena Tarsounas </span></td>
+						</tr>
+						<tr>
+							<td>09.50 - 10.20</td>
+							<td>BRCA1-deficient cells require TOP1 mediated DNA damage for sensitivity to PARP inhibitors </td>
+							<td><span class="speaker-name">Rebecca Dagg (Madalena Tarsounas’s Lab Member) </span></td>
+						</tr>
+					</table>
+					<p class="break">10.30 - 11.10: Coffee break</p>
+					
+					<div class="spacer"></div>
+					<table class="transparent-table">
+						<tr>
+							<td>11.10 - 11.40</td>
+							<td>Identification of key regulators of DDR signaling and DNA repair at deprotected telomeres </td>
+							<td><span class="speaker-name">Jacqueline Jacobs </span></td>
+						</tr>
+						<tr>
+							<td>11.50 - 12.20</td>
+							<td>DROSHA and DICER RNA products control BMI1-dependent transcriptional repression at DNA double-strand break </td>
+							<td><span class="speaker-name">Sofia Francia (Fabrizio D'Adda Di Fagagna’s Lab Member) </span></td>
+						</tr>
+					</table>
+
+					<p class="meal">12.30 – 13.30: Lunch Break</p>
+
+
+					<div class="spacer"></div>
+					<h4>Session 2: DNA Repair & Cancer </h4>
+					<table class="transparent-table">
+						<tr>
+							<td>13.30 - 14.00</td>
+							<td>Dot1l and NHEJ components are required for protecting MLL-rearranged AML from Olaparib-induced genotoxic stress </td>
+							<td><span class="speaker-name">Tsz Kan Fung (Eric So’s Lab Member) </span></td>
+						</tr>
+						<tr>
+							<td>14.10 - 14.40</td>
+							<td>DSB repair in mammalian physiology and tumour suppression </td>
+							<td><span class="speaker-name">Ross Chapman </span></td>
+						</tr>
+					</table>
+					<p class="break">14.50 - 15.30: Coffee break</p>
+					
+					<div class="spacer"></div>
+					<h4>Session 3: Genome Stability and Replication Stress </h4>
+					<table class="transparent-table">
+						<tr>
+							<td>15.30 - 16.00</td>
+							<td>Exploring the role of RAD51 interaction with G4 in replication </td>
+							<td><span class="speaker-name">Michaela Pospíšilová (Lumir Krejci’s Lab Member) </span></td>
+						</tr>
+						<tr>
+							<td>16.10 - 16.40</td>
+							<td>Role of HR in replication stress </td>
+							<td><span class="speaker-name">Lumir Krejci </span></td>
+						</tr>
+					</table>
+					<p class="registration">16.50 - 17.40: Planning for the upcoming meeting </p>
+					<p class="break">17.40 - 18.30: Free Time </p>
+					<p class="transport">18.30: Bus to Dinner Venue (departure from Campus) </p>
+					<p class="meal">19.00 - 21.00: Dinner at Tuzla Viaport Marina </p>
+					<p class="break">21.00 - 23.00: Free Time </p>
+					<p class="transport">23.00: Bus back to Campus (departure from Tuzla Viaport Marina) </p>
+
+				</details>
+				
+				<details>
+					<summary><strong>Day 2: September 5th, 2024 <span class="minerva">Venue: Karaköy Minerva Han</span></strong></summary>
+					
+					<div class="spacer"></div>
+					<p class="transport">07.30: Bus to Karaköy Minerva Han </p>
+					<p class="meal">08.40 - 09.20: Breakfast at Karaköy Minerva Han </p>
+
+					<div class="spacer"></div>
+					<h4>Session 4: 3D Genome and Chromatin Dynamics in DDR </h4>
+					<table class="transparent-table">
+						<tr>
+							<td>09.20 - 09.50</td>
+							<td>The nucleotide pool in genome and epigenome integrity </td>
+							<td><span class="speaker-name">Matthias Bochtler </span></td>
+						</tr>
+						<tr>
+							<td>10.00 - 10.30</td>
+							<td>Genome organisation in genome stability </td>
+							<td><span class="speaker-name">Evi Soutoglou  </span></td>
+						</tr>
+					</table>
+					<p class="break">10.40 - 10.55: Coffee Break </p>
+
+					<div class="spacer"></div>
+					<table class="transparent-table">
+						<tr>
+							<td>10.55 - 11.25</td>
+							<td>A role for cohesin in modulating fork plasticity and 3D genome architecture in response to replication stress </td>
+							<td><span class="speaker-name">Daniel González Acosta </span></td>
+						</tr>
+						<tr>
+							<td>11.35 - 12.05</td>
+							<td>3D Genome reorganization during DNA damage response to UV  </td>
+							<td><span class="speaker-name">Veysel Oğulcan Kaya (Ogün Adebali’s Lab Member) </span></td>
+						</tr>
+					</table>
+					
+					<p class="break">12.15 – 13.20: Free Time for Lunch Break </p>
+					
+					<div class="spacer"></div>
+					<h4>Session 5: RNA Regulation and DDR </h4>
+					<table class="transparent-table">
+						<tr>
+							<td>13.20 - 13.50</td>
+							<td>DNA damage, transcription stress and innate immune signaling in health and disease </td>
+							<td><span class="speaker-name">George A. Garinis </td>
+						</tr>
+						<tr>
+							<td>14.00 - 14.30</td>
+							<td>RNA processing and regulation upon DNA damage  </td>
+							<td><span class="speaker-name">Evi Goulielmaki (George Garinis’s Lab Member) </span></td>
+						</tr>
+					</table>
+
+					<p class="tour">14.40 - 19.00: Tram Ride to Historic Sultanahmet Square & Free Time </p>
+					<p class="meal">19.00 - 22.00: Gala Dinner at Luco Restaurant Sirkeci Rooftop </p>
+					<p class="transport">23.00: Bus back to Campus (departure from Karaköy Minerva Han) </p>
+				</details>
+				
+				<details>
+					<summary><strong>Day 3: September 6th, 2024 <span class="sabanci">Venue: Sabancı University Tuzla Campus</span></strong></summary>
+					<div class="spacer"></div>
+
+					<h4>Session 6: Cell Cycle Regulation and Signaling </h4>
+					<table class="transparent-table">
+						<tr>
+							<td>09.00 - 09.30</td>
+							<td>Genomics and epigenomics of haplodiplontic life cycling </td>
+							<td><span class="speaker-name">Chuan Ku</span></td>
+						</tr>
+						<tr>
+							<td>09.40 - 10.10</td>
+							<td>Mechanisms that assure correct chromosome segregation in budding yeast </td>
+							<td><span class="speaker-name">Ayşe Koca Çaydaşı</span></td>
+						</tr>
+					</table>
+
+					<p class="break">10:20 - 11:30: Coffee break and planning for the upcoming meeting</p>
+
+					<div class="spacer"></div>
+					<table class="transparent-table">
+						<tr>
+							<td>11.00 - 11.30</td>
+							<td>Dynamic Spatial Control of Mitotic Exit: Investigating PI3,5P2-Mediated Asymmetry in Budding Yeast </td>
+							<td><span class="speaker-name">Mariam Said Fawzy Mohamed Huda (Ayse Koca Caydasi’s Lab Member) </span></td>
+						</tr>
+						<tr>
+							<td>11.00 - 11.30</td>
+							<td>Unexpected roles of Holliday junctions during meiosis </td>
+							<td><span class="speaker-name">Joao Matos </span></td>
+						</tr>
+					</table>
+
+					<p class="conclusion">12.20 - 12.30: Concluding comments and departures</p>
+
+				</details>
+				
+				<style>
+				.transparent-table {
+					width: 100%;
+					border-collapse: collapse;
+					background-color: rgba(0, 0, 0, 0.5); /* Adjust transparency here */
+				}
+				
+				.transparent-table td {
+					border: 1px solid #ddd;
+					padding: 8px;
+				}
+
+				.registration {
+					background-color: rgba(59, 255, 226, 0.5); /* Light orange */
+				}
+				
+				.break {
+					background-color: rgba(255, 223, 186, 0.5); /* Light orange */
+				}
+				
+				.transport {
+					background-color: rgba(173, 216, 230, 0.5); /* Light blue */
+				}
+				
+				.meal {
+					background-color: rgba(144, 238, 144, 0.5); /* Light green */
+				}
+				
+				.tour {
+					background-color: rgba(255, 182, 193, 0.5); /* Light pink */
+				}
+				
+				.conclusion {
+					background-color: rgba(221, 160, 221, 0.5); /* Plum */
+				}
+
+				.sabanci {
+					background-color: rgba(90, 98, 186, 0.5); /* White */
+				}
+
+				.minerva {
+					background-color: rgba(197, 194, 91, 0.5); /* White */
+				}
+				</style>
+</article>									
 
 						<article id="campusmap">
 							
 							<h2>Campus Map</h2>
 							<p>Hotel is located in 3.</p>
-							<embed src="images/campus_map.pdf" type="application/pdf" width="100%" height="720px" />
+														<style>
+								.responsive-iframe {
+									position: relative;
+									width: 100%;
+									height: 0;
+									padding-bottom: 75%; /* Adjust this value as needed */
+								}
+								.responsive-iframe iframe {
+									position: absolute;
+									top: 0;
+									left: 0;
+									width: 100%;
+									height: 100%;
+									border: none;
+								}
+							</style>
+							
+							<div class="responsive-iframe">
+								<iframe src="images/campus_map.pdf" type="application/pdf"></iframe>
+							</div>
 						</article>
 
 						<article id="transport">
@@ -163,7 +383,7 @@
 								<p>There are 2 choices.</p>
 								<p>1. Taxi: The easiest way to get to the campus is to take a taxi from the airport. The cost is around 50 euros, and it takes around ~60 minutes to get to the campus.</p>
 								<p>2. Another option is to use HAVAIST shuttle from IST to Sabiha Gökçen Airport (SAW) and then take a taxi to the campus from there. However, the HAVAIST schedules are limited, so you might need to wait at the airport, but it will be much cheaper.</p>
-								<small><p>Please check <a href="https://www.hava.ist/sefer-saatleri.php?lang=en" target="_blank"> <b style="color: lightcoral;">HERE</b> </a> for more information on HAVAIST schedule and the shuttle line, and choose "ISTANBUL HAVALIMANI" to "SABIHA GOKCEN AIRPORT", and hit "List Trips".</p></small>
+								<small><p>Please check <a href="https://www.hava.ist/sefer-saatleri.php?lang=en" target="_blank"> <b style="color: lightcoral;">HERE</b> </a> for more information on HAVAIST schedule and the shuttle line, and choose "ISTANBUL HAVALIMANI" to "SABIHA GOKCEN AIRPORT", and hit "List Trips". After you arrive to "SABIHA GOKCEN AIRPORT (SAW)", you can take a taxi to the campus. </p></small>
 							</section>
 							<section id="from-saw">
 								<h3>From SAW Airport to Campus</h3>

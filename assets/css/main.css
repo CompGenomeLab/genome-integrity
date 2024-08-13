@@ -1649,3 +1649,6 @@ button {
 	body.is-preload #footer {
 		opacity: 0;
 	}
+table tr, table td {
+    background-color: transparent;
+}

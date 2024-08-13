@@ -112,24 +112,24 @@
 								font-weight: bold; /* İsteğe bağlı: Konuşmacı adını kalın yapar */
 							}
 						</style>
+						<style>
+							.spacer {
+								height: 20px; /* Adjust the height as needed */
+							}
+						</style>
 <article id="schedule">
     
 								<h2>Conference Schedule</h2>
 				
-				<details>
-					<style>
-						.spacer {
-							height: 20px; /* Adjust the height as needed */
-						}
-						</style>
 
-					<summary><strong>Day 1: September 4th, 2024 <span class="sabanci">Venue: Sabancı University Tuzla Campus</span></strong></summary>
-					<div class="spacer"></div>
+
+				<details>
+					
+
+					<summary><strong>Day 1: September 4th, 2024 <span class="sabanci">Venue: Sabancı University Tuzla Campus<br>Faculty of Engineering and Natural Sciences (FENS) Room: G032 </span></strong></summary>					<div class="spacer"></div>
 					<p class="meal">08.00 - 08.45: Breakfast at Campus Cafeteria</p>
-					<p class="registration">08.45 - 09.00: Registration </p>
+					<p class="registration">08.45 - 09.00: Registration (FENS G032) </p>
 					<p class="conclusion">09.00 - 09.10: Opening (Host: <span class="speaker-name">Ogün Adebali</span>)</p>
-					
-					
 					
 					<!-- Add this spacer before the specified line -->
 					<div class="spacer"></div>
@@ -205,7 +205,7 @@
 				</details>
 				
 				<details>
-					<summary><strong>Day 2: September 5th, 2024 <span class="minerva">Venue: Karaköy Minerva Han</span></strong></summary>
+					<summary><strong>Day 2: September 5th, 2024 <span class="minerva">Venue: Karaköy Minerva Han (Room: KCC - 001) </span></strong></summary>
 					
 					<div class="spacer"></div>
 					<p class="transport">07.30: Bus to Karaköy Minerva Han </p>
@@ -264,9 +264,11 @@
 				</details>
 				
 				<details>
-					<summary><strong>Day 3: September 6th, 2024 <span class="sabanci">Venue: Sabancı University Tuzla Campus</span></strong></summary>
+					<summary><strong>Day 2: September 6th, 2024 <span class="sabanci">Venue: Sabancı University Tuzla Campus<br>Faculty of Engineering and Natural Sciences (FENS) Room: G032 </span></strong></summary>					<div class="spacer"></div>
 					<div class="spacer"></div>
 
+					<p class="meal">08.00 – 09.00: Breakfast at Campus Cafeteria </p>
+					<div class="spacer"></div>
 					<h4>Session 6: Cell Cycle Regulation and Signaling </h4>
 					<table class="transparent-table">
 						<tr>
@@ -281,7 +283,7 @@
 						</tr>
 					</table>
 
-					<p class="break">10:20 - 11:30: Coffee break and planning for the upcoming meeting</p>
+					<p class="break">10:20 - 11:00: Coffee break</p>
 
 					<div class="spacer"></div>
 					<table class="transparent-table">
@@ -350,7 +352,16 @@
 						<article id="campusmap">
 							
 							<h2>Campus Map</h2>
-							<p>Hotel is located in 3.</p>
+							<style>
+								.reduced-spacing {
+									margin: 0.2em 0; /* Adjust the margin to control spacing between elements */
+									background-color: rgba(228, 147, 125, 0.5);
+								}
+							</style>
+							<p class="reduced-spacing">Hotel is located in 3.</p>
+							<p class="reduced-spacing">Dormitories are located in 25.</p>
+							<div class="spacer"></div>
+
 														<style>
 								.responsive-iframe {
 									position: relative;

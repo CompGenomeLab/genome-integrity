@@ -52,31 +52,39 @@
     </div>
     <script>
         const meetingName = "EMBO Genome Integrity Meeting";
-        const targetTime = new Date("2024-09-04T08:00:00+03:00"); // Target time (Turkey time)
+        const startTime = new Date("2024-09-04T08:00:00+03:00"); // Conference start time (Turkey time)
+        // const startTime = new Date("2024-08-27T08:00:00+03:00"); // Conference start time (Turkey time)
         const schedule = [
             {"duration": 45, "annotation": "Breakfast at Campus Cafeteria"},
             {"duration": 15, "annotation": "Registration (FENS G032)"},
             {"duration": 10, "annotation": "Opening (Host: Ogün Adebali)"},
             {"duration": 30, "annotation": "Pol theta-dependent compromised DNA repair fidelity in embryonic stem cells - Raquel Carreira Rodriguez"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "BRCA1-deficient cells require TOP1 mediated DNA damage for sensitivity to PARP inhibitors - Rebecca Dagg (Madalena Tarsounas’s Lab Member)"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
             {"duration": 40, "annotation": "Coffee Break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Identification of key regulators of DDR signaling and DNA repair at deprotected telomeres - Jacqueline Jacobs"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Resolution of topological transcription-replication conflicts by TDP2-mediated fork rotation and TOP2A decatenation - Felipe Cortés-Ledesma"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
             {"duration": 60, "annotation": "Lunch Break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Dot1l and NHEJ components are required for protecting MLL-rearranged AML from Olaparib-induced genotoxic stress - Tsz Kan Fung (Eric So’s Lab Member)"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "DSB repair in mammalian physiology and tumour suppression - Ross Chapman"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
             {"duration": 40, "annotation": "Coffee Break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Exploring the role of RAD51 interaction with G4 in replication - Michaela Pospíšilová (Lumir Krejci’s Lab Member)"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Mechanisms of action of RAD51 paralogs - Lumir Krejci"},
-            {"duration": 10, "annotation": "Q&A Session"},
-            {"duration": 50, "annotation": "Planning for the upcoming meeting"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 52, "annotation": "Planning for the upcoming meeting"},
             {"duration": 50, "annotation": "Free Time"},
             {"duration": 30, "annotation": "Bus to Dinner Venue (departure from Campus)"},
             {"duration": 120, "annotation": "Dinner at Tuzla Viaport Marina"},
@@ -86,35 +94,44 @@
             {"duration": 70, "annotation": "Bus to Karaköy Minerva Han"},
             {"duration": 40, "annotation": "Breakfast at Karaköy Minerva Han"},
             {"duration": 30, "annotation": "The nucleotide pool in genome and epigenome integrity - Matthias Bochtler"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Genome organisation in genome stability - Evi Soutoglou"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
             {"duration": 15, "annotation": "Coffee Break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "A role for cohesin in modulating fork plasticity and 3D genome architecture in response to replication stress - Daniel González Acosta (Massimo Lopes's Lab Member)"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "3D Genome reorganization during DNA damage response to UV - Veysel Oğulcan Kaya (Ogün Adebali’s Lab Member)"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
             {"duration": 95, "annotation": "Free Time for Lunch Break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "DNA damage, transcription stress and innate immune signaling in health and disease - George A. Garinis"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "DROSHA and DICER RNA products control BMI1-dependent transcriptional repression at DNA double-strand break - Sofia Francia (Fabrizio D'Adda Di Fagagna’s Lab Member)"},
-            {"duration": 10, "annotation": "Q&A Session"},
-            {"duration": 230, "annotation": "Tram Ride to Historic Sultanahmet Square & Free Time"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 232, "annotation": "Tram Ride to Historic Sultanahmet Square & Free Time"},
             {"duration": 180, "annotation": "Gala Dinner at Luco Restaurant Sirkeci Rooftop (Reservation under name: EMBO)"},
             {"duration": 30, "annotation": "Bus back to Campus (departure from Karaköy Minerva Han)"},
             {"duration": 510, "annotation": "Free time, sleep... Meet us at the cafeteria at 08.00"},
             {"duration": 60, "annotation": "Breakfast at Campus Cafeteria"},
             {"duration": 30, "annotation": "Genomics and epigenomics of haplodiplontic life cycling - Chuan Ku"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Mechanisms that assure correct chromosome segregation in budding yeast - Ayşe Koca Çaydaşı"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
             {"duration": 40, "annotation": "Coffee break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Dynamic Spatial Control of Mitotic Exit: Investigating PI3,5P2-Mediated Asymmetry in Budding Yeast - Mariam Said Fawzy Mohamed Huda (Ayse Koca Caydasi’s Lab Member)"},
-            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
             {"duration": 30, "annotation": "Unexpected roles of Holliday junctions during meiosis - Joao Matos"},
-            {"duration": 10, "annotation": "Q&A Session"},
-            {"duration": 10, "annotation": "Concluding comments and departures"}
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 12, "annotation": "Concluding comments and departures"}
         ];
+
 
         const canvas = document.getElementById("progressCanvas");
         const ctx = canvas.getContext("2d");
@@ -128,8 +145,8 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        let startColor = [0, 255, 0]; // Green
-        let endColor = [255, 0, 0];   // Red
+        let startColor = [255, 250, 250]; // Snow
+        let endColor = [245, 172, 0];   // EMBO Yellow
 
         function interpolateColor(startColor, endColor, factor) {
             return [
@@ -155,18 +172,50 @@
             ctx.fill();
         }
 
-        function startInitialCountdown() {
+        function calculateCurrentSession(schedule) {
+            const now = new Date();
+            const elapsedTimeSeconds = Math.floor((now - startTime) / 1000); // Total elapsed time in seconds
+            let accumulatedSeconds = 0;
+
+            for (let i = 0; i < schedule.length; i++) {
+                accumulatedSeconds += schedule[i].duration * 60;
+                if (elapsedTimeSeconds < accumulatedSeconds) {
+                    const elapsedWithinSession = elapsedTimeSeconds - (accumulatedSeconds - schedule[i].duration * 60);
+                    return { sessionIndex: i, elapsedWithinSession };
+                }
+            }
+
+            return { sessionIndex: schedule.length - 1, elapsedWithinSession: schedule[schedule.length - 1].duration * 60 };
+        }
+
+        function startScheduleFromCurrentSession(schedule) {
+            const result = calculateCurrentSession(schedule);
+            const sessionIndex = result.sessionIndex;
+            const elapsedWithinSession = result.elapsedWithinSession;
+
+            // Skip sessions that have already passed
+            for (let i = 0; i < sessionIndex; i++) {
+                schedule.shift();
+            }
+
+            if (schedule.length > 0) {
+                updateTimer(schedule[0].duration, schedule[0].annotation, elapsedWithinSession, schedule);
+            } else {
+                textContainer.innerHTML = `${meetingName} Finished!`;
+            }
+        }
+
+        function startInitialCountdown(schedule) {
             const interval = setInterval(() => {
                 const now = new Date();
-                const timeDiff = targetTime - now;
+                const timeDiff = startTime - now;
 
                 if (timeDiff <= 0) {
                     clearInterval(interval);
-                    textContainer.innerHTML = "Starting...";
-                    setTimeout(() => nextSession(), 1000);
+                    startScheduleFromCurrentSession(schedule);
                     return;
                 }
-              
+
                 const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
@@ -184,27 +233,27 @@
             }, 1000);
         }
 
-        function updateTimer(duration, annotation) {
-            let totalSeconds = Math.round(duration * 60) - 5;
-            let elapsedSeconds = 0;
+        function updateTimer(duration, annotation, elapsedSeconds, schedule) {
+            let totalSeconds = Math.round(duration * 60);
+            let elapsed = elapsedSeconds;
 
             const interval = setInterval(() => {
-                elapsedSeconds++;
-                const progress = elapsedSeconds / totalSeconds;
+                elapsed++;
+                const progress = elapsed / totalSeconds;
                 drawCircleProgress(progress);
 
-                const mins = Math.floor((totalSeconds - elapsedSeconds) / 60);
-                const secs = (totalSeconds - elapsedSeconds) % 60;
+                const mins = Math.floor((totalSeconds - elapsed) / 60);
+                const secs = (totalSeconds - elapsed) % 60;
                 textContainer.innerHTML = `${annotation}<br>${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
-                if (elapsedSeconds >= totalSeconds) {
+                if (elapsed >= totalSeconds) {
                     clearInterval(interval);
                     textContainer.innerHTML = `${annotation}<br>Time's up!`;
-                    setTimeout(() => nextSession(), 5000);
+                    setTimeout(() => nextSession(schedule), 1000);
                 }
 
-                if (elapsedSeconds >= totalSeconds - 5) {
-                    const flashColor = elapsedSeconds % 2 === 0 ? "white" : "black";
+                if (elapsed >= totalSeconds - 5) {
+                    const flashColor = elapsed % 2 === 0 ? "white" : "black";
                     document.body.style.backgroundColor = flashColor;
                     textContainer.style.backgroundColor = "black";
                 } else {
@@ -213,17 +262,18 @@
             }, 1000);
         }
 
-        function nextSession() {
+        function nextSession(schedule) {
             if (schedule.length > 0) {
-                const {duration, annotation} = schedule.shift();
-                updateTimer(duration, annotation);
+                const { duration, annotation } = schedule.shift();
+                updateTimer(duration, annotation, 0, schedule);
             } else {
                 textContainer.innerHTML = `${meetingName} Finished!`;
             }
         }
 
-        // Start the initial countdown
-        startInitialCountdown();
+        // Start the initial countdown with the first schedule
+        startInitialCountdown(schedule);
+
     </script>
 </body>
 </html>

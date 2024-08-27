@@ -26,6 +26,37 @@
 			available. 
 		-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* Add this CSS to style the button */
+			.button {
+    display: inline-block;
+    padding: 10px 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #01236a; /* Blue background */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center; /* Center the text */
+    line-height: 1.5; /* Adjust as needed */
+}
+
+
+		.button:hover {
+			background-color: #0056b3; /* Darker blue on hover */
+		}
+
+		.button-container {
+			display: flex;
+			flex-direction: column; /* Stack children vertically */
+			justify-content: center; /* Center horizontally */
+			align-items: center; /* Center vertically */
+			height: 100vh; /* Full viewport height */
+			text-align: center; /* Center text inside the container */
+		}
+		</style>
 	</head>
 	<!-- The body is the location where your site's content will go -->
 	<body class="is-preload">
@@ -44,7 +75,7 @@
 									<br>
 									<span style="font-size: smaller;">4th - 6th September 2024</span>
 								</h1>
-
+								
 								<!-- Here is an image that is displayed well on both desktop and mobile -->
 																<style>
 									.responsive-img {
@@ -60,8 +91,7 @@
 									Sabanci University <br> Istanbul, Türkiye
 								</p>
 								<!-- Here is a paragraph where you can put a link to your CV -->
-
-								
+																
 							</div>
 						</div>
 						<!-- This is the navigation menu -->
@@ -93,6 +123,7 @@
 								</li> -->
 							</ul>
 						</nav>
+						<a href="timer.html" class="button" target="_blank">What's Happening Now?</a>
 					</header>
 
 					<!-- These are the "cards" that appear when you click the buttons on the main page -->

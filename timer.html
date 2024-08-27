@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference Timer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        #progressCanvas {
+            width: 100%;
+            height: calc(100% - 120px); /* Adjust height to make more space for the text */
+        }
+        #textContainer {
+            width: 90%; /* Use 90% width to avoid text overflow */
+            max-width: 1000px; /* Set a maximum width for readability on larger screens */
+            text-align: center;
+            font-size: 36px; /* Adjusted for better readability on small screens */
+            color: white;
+            background-color: black;
+            padding: 20px 10px; /* Padding adjusted for small screens */
+            position: relative;
+            z-index: 10; /* Ensure text stays on top */
+            word-wrap: break-word; /* Ensure text wraps within container */
+            overflow-wrap: break-word; /* For better text handling on narrower screens */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="progressCanvas"></canvas>
+        <div id="textContainer">Loading...</div>
+    </div>
+    <script>
+        const meetingName = "EMBO Genome Integrity Meeting";
+        const targetTime = new Date("2024-09-04T08:00:00+03:00"); // Target time (Turkey time)
+        const schedule = [
+            {"duration": 45, "annotation": "Breakfast at Campus Cafeteria"},
+            {"duration": 15, "annotation": "Registration (FENS G032)"},
+            {"duration": 10, "annotation": "Opening (Host: Ogün Adebali)"},
+            {"duration": 30, "annotation": "Pol theta-dependent compromised DNA repair fidelity in embryonic stem cells - Raquel Carreira Rodriguez"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "BRCA1-deficient cells require TOP1 mediated DNA damage for sensitivity to PARP inhibitors - Rebecca Dagg (Madalena Tarsounas’s Lab Member)"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 40, "annotation": "Coffee Break"},
+            {"duration": 30, "annotation": "Identification of key regulators of DDR signaling and DNA repair at deprotected telomeres - Jacqueline Jacobs"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "Resolution of topological transcription-replication conflicts by TDP2-mediated fork rotation and TOP2A decatenation - Felipe Cortés-Ledesma"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 60, "annotation": "Lunch Break"},
+            {"duration": 30, "annotation": "Dot1l and NHEJ components are required for protecting MLL-rearranged AML from Olaparib-induced genotoxic stress - Tsz Kan Fung (Eric So’s Lab Member)"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "DSB repair in mammalian physiology and tumour suppression - Ross Chapman"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 40, "annotation": "Coffee Break"},
+            {"duration": 30, "annotation": "Exploring the role of RAD51 interaction with G4 in replication - Michaela Pospíšilová (Lumir Krejci’s Lab Member)"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "Mechanisms of action of RAD51 paralogs - Lumir Krejci"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 50, "annotation": "Planning for the upcoming meeting"},
+            {"duration": 50, "annotation": "Free Time"},
+            {"duration": 30, "annotation": "Bus to Dinner Venue (departure from Campus)"},
+            {"duration": 120, "annotation": "Dinner at Tuzla Viaport Marina"},
+            {"duration": 120, "annotation": "Free Time"},
+            {"duration": 30, "annotation": "Bus back to Campus (departure from Tuzla Viaport Marina)"},
+            {"duration": 480, "annotation": "Free time, sleep... Meet us at bus location at 07.30"},
+            {"duration": 70, "annotation": "Bus to Karaköy Minerva Han"},
+            {"duration": 40, "annotation": "Breakfast at Karaköy Minerva Han"},
+            {"duration": 30, "annotation": "The nucleotide pool in genome and epigenome integrity - Matthias Bochtler"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "Genome organisation in genome stability - Evi Soutoglou"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 15, "annotation": "Coffee Break"},
+            {"duration": 30, "annotation": "A role for cohesin in modulating fork plasticity and 3D genome architecture in response to replication stress - Daniel González Acosta (Massimo Lopes's Lab Member)"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "3D Genome reorganization during DNA damage response to UV - Veysel Oğulcan Kaya (Ogün Adebali’s Lab Member)"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 95, "annotation": "Free Time for Lunch Break"},
+            {"duration": 30, "annotation": "DNA damage, transcription stress and innate immune signaling in health and disease - George A. Garinis"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "DROSHA and DICER RNA products control BMI1-dependent transcriptional repression at DNA double-strand break - Sofia Francia (Fabrizio D'Adda Di Fagagna’s Lab Member)"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 230, "annotation": "Tram Ride to Historic Sultanahmet Square & Free Time"},
+            {"duration": 180, "annotation": "Gala Dinner at Luco Restaurant Sirkeci Rooftop (Reservation under name: EMBO)"},
+            {"duration": 30, "annotation": "Bus back to Campus (departure from Karaköy Minerva Han)"},
+            {"duration": 510, "annotation": "Free time, sleep... Meet us at the cafeteria at 08.00"},
+            {"duration": 60, "annotation": "Breakfast at Campus Cafeteria"},
+            {"duration": 30, "annotation": "Genomics and epigenomics of haplodiplontic life cycling - Chuan Ku"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "Mechanisms that assure correct chromosome segregation in budding yeast - Ayşe Koca Çaydaşı"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 40, "annotation": "Coffee break"},
+            {"duration": 30, "annotation": "Dynamic Spatial Control of Mitotic Exit: Investigating PI3,5P2-Mediated Asymmetry in Budding Yeast - Mariam Said Fawzy Mohamed Huda (Ayse Koca Caydasi’s Lab Member)"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 30, "annotation": "Unexpected roles of Holliday junctions during meiosis - Joao Matos"},
+            {"duration": 10, "annotation": "Q&A Session"},
+            {"duration": 10, "annotation": "Concluding comments and departures"}
+        ];
+
+        const canvas = document.getElementById("progressCanvas");
+        const ctx = canvas.getContext("2d");
+        const textContainer = document.getElementById("textContainer");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight - 120; // Adjust for text height
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let startColor = [0, 255, 0]; // Green
+        let endColor = [255, 0, 0];   // Red
+
+        function interpolateColor(startColor, endColor, factor) {
+            return [
+                Math.round(startColor[0] + factor * (endColor[0] - startColor[0])),
+                Math.round(startColor[1] + factor * (endColor[1] - startColor[1])),
+                Math.round(startColor[2] + factor * (endColor[2] - startColor[2]))
+            ];
+        }
+
+        function drawCircleProgress(progress) {
+            const radius = Math.min(canvas.width, canvas.height) / 2 - 10;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const color = interpolateColor(startColor, endColor, progress);
+            const colorHex = `rgb(${color[0]},${color[1]},${color[2]})`;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = colorHex;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + progress * 2 * Math.PI);
+            ctx.lineTo(centerX, centerY);
+            ctx.fill();
+        }
+
+        function startInitialCountdown() {
+            const interval = setInterval(() => {
+                const now = new Date();
+                const timeDiff = targetTime - now;
+
+                if (timeDiff <= 0) {
+                    clearInterval(interval);
+                    textContainer.innerHTML = "Starting...";
+                    setTimeout(() => nextSession(), 1000);
+                    return;
+                }
+              
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                let countdownText = `${meetingName} starts in `;
+
+                if (days > 0) {
+                    countdownText += `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                } else {
+                    countdownText += `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+
+                textContainer.innerHTML = countdownText;
+            }, 1000);
+        }
+
+        function updateTimer(duration, annotation) {
+            let totalSeconds = Math.round(duration * 60) - 5;
+            let elapsedSeconds = 0;
+
+            const interval = setInterval(() => {
+                elapsedSeconds++;
+                const progress = elapsedSeconds / totalSeconds;
+                drawCircleProgress(progress);
+
+                const mins = Math.floor((totalSeconds - elapsedSeconds) / 60);
+                const secs = (totalSeconds - elapsedSeconds) % 60;
+                textContainer.innerHTML = `${annotation}<br>${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                if (elapsedSeconds >= totalSeconds) {
+                    clearInterval(interval);
+                    textContainer.innerHTML = `${annotation}<br>Time's up!`;
+                    setTimeout(() => nextSession(), 5000);
+                }
+
+                if (elapsedSeconds >= totalSeconds - 5) {
+                    const flashColor = elapsedSeconds % 2 === 0 ? "white" : "black";
+                    document.body.style.backgroundColor = flashColor;
+                    textContainer.style.backgroundColor = "black";
+                } else {
+                    document.body.style.backgroundColor = "black";
+                }
+            }, 1000);
+        }
+
+        function nextSession() {
+            if (schedule.length > 0) {
+                const {duration, annotation} = schedule.shift();
+                updateTimer(duration, annotation);
+            } else {
+                textContainer.innerHTML = `${meetingName} Finished!`;
+            }
+        }
+
+        // Start the initial countdown
+        startInitialCountdown();
+    </script>
+</body>
+</html>

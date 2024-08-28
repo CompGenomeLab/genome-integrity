@@ -50,10 +50,11 @@
         <canvas id="progressCanvas"></canvas>
         <div id="textContainer">Loading...</div>
     </div>
+    <audio id="endSound" src="end_sound.mp3"></audio>
     <script>
         const meetingName = "EMBO Genome Integrity Meeting";
         const startTime = new Date("2024-09-04T08:00:00+03:00"); // Conference start time (Turkey time)
-        // const startTime = new Date("2024-08-27T08:00:00+03:00"); // Conference start time (Turkey time)
+        // const startTime = new Date("2024-08-28T08:00:00+03:00"); // Conference start time (Turkey time)
         const schedule = [
             {"duration": 45, "annotation": "Breakfast at Campus Cafeteria"},
             {"duration": 15, "annotation": "Registration (FENS G032)"},
@@ -113,7 +114,7 @@
             {"duration": 30, "annotation": "DROSHA and DICER RNA products control BMI1-dependent transcriptional repression at DNA double-strand break - Sofia Francia (Fabrizio D'Adda Di Fagagna’s Lab Member)"},
             {"duration": 8, "annotation": "Q&A Session"},
             {"duration": 232, "annotation": "Tram Ride to Historic Sultanahmet Square & Free Time"},
-            {"duration": 180, "annotation": "Gala Dinner at Luco Restaurant Sirkeci Rooftop (Reservation under name: EMBO)"},
+            {"duration": 240, "annotation": "Gala Dinner at Luco Restaurant Sirkeci Rooftop (Reservation under name: EMBO)"},
             {"duration": 30, "annotation": "Bus back to Campus (departure from Karaköy Minerva Han)"},
             {"duration": 510, "annotation": "Free time, sleep... Meet us at the cafeteria at 08.00"},
             {"duration": 60, "annotation": "Breakfast at Campus Cafeteria"},
@@ -136,6 +137,7 @@
         const canvas = document.getElementById("progressCanvas");
         const ctx = canvas.getContext("2d");
         const textContainer = document.getElementById("textContainer");
+        const endSound = document.getElementById("endSound");
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -249,6 +251,7 @@
                 if (elapsed >= totalSeconds) {
                     clearInterval(interval);
                     textContainer.innerHTML = `${annotation}<br>Time's up!`;
+                    endSound.play(); // Play sound at the end of the session
                     setTimeout(() => nextSession(schedule), 1000);
                 }
 

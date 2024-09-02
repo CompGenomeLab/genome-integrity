@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference Timer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        #progressCanvas {
+            width: 100%;
+            height: calc(100% - 120px); /* Adjust height to make more space for the text */
+        }
+        #textContainer {
+            width: 90%; /* Use 90% width to avoid text overflow */
+            max-width: 1000px; /* Set a maximum width for readability on larger screens */
+            text-align: center;
+            font-size: 36px; /* Adjusted for better readability on small screens */
+            color: white;
+            background-color: black;
+            padding: 20px 10px; /* Padding adjusted for small screens */
+            position: relative;
+            z-index: 10; /* Ensure text stays on top */
+            word-wrap: break-word; /* Ensure text wraps within container */
+            overflow-wrap: break-word; /* For better text handling on narrower screens */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="progressCanvas"></canvas>
+        <div id="textContainer">Loading...</div>
+    </div>
+    <audio id="endSound" src="end_sound.mp3"></audio>
+    <script>
+        const meetingName = "EMBO Genome Integrity Meeting";
+        const startTime = new Date("2024-09-03T13:40:00+03:00"); // Conference start time (Turkey time)
+        // const startTime = new Date("2024-08-28T08:00:00+03:00"); // Conference start time (Turkey time)
+        const schedule = [
+            {"duration": 30, "annotation": "3D Genome reorganization during DNA damage response to UV - Veysel Oğulcan Kaya (Ogün Adebali’s Lab Member)"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 95, "annotation": "Free Time for Lunch Break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
+            {"duration": 30, "annotation": "DNA damage, transcription stress and innate immune signaling in health and disease - George A. Garinis"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
+            {"duration": 30, "annotation": "DROSHA and DICER RNA products control BMI1-dependent transcriptional repression at DNA double-strand break - Sofia Francia (Fabrizio D'Adda Di Fagagna’s Lab Member)"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 232, "annotation": "Tram Ride to Historic Sultanahmet Square & Free Time"},
+            {"duration": 240, "annotation": "Gala Dinner at Luco Restaurant Sirkeci Rooftop (Reservation under name: EMBO)"},
+            {"duration": 30, "annotation": "Bus back to Campus (departure from Karaköy Minerva Han)"},
+            {"duration": 510, "annotation": "Free time, sleep... Meet us at the cafeteria at 08.00"},
+            {"duration": 60, "annotation": "Breakfast at Campus Cafeteria"},
+            {"duration": 30, "annotation": "Genomics and epigenomics of haplodiplontic life cycling - Chuan Ku"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
+            {"duration": 30, "annotation": "Mechanisms that assure correct chromosome segregation in budding yeast - Ayşe Koca Çaydaşı"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 40, "annotation": "Coffee break"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
+            {"duration": 30, "annotation": "Dynamic Spatial Control of Mitotic Exit: Investigating PI3,5P2-Mediated Asymmetry in Budding Yeast - Mariam Said Fawzy Mohamed Huda (Ayse Koca Caydasi’s Lab Member)"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 2, "annotation": "Preparation of the next speaker"},
+            {"duration": 30, "annotation": "Unexpected roles of Holliday junctions during meiosis - Joao Matos"},
+            {"duration": 8, "annotation": "Q&A Session"},
+            {"duration": 12, "annotation": "Concluding comments and departures"}
+        ];
+
+
+        const canvas = document.getElementById("progressCanvas");
+        const ctx = canvas.getContext("2d");
+        const textContainer = document.getElementById("textContainer");
+        const endSound = document.getElementById("endSound");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight - 120; // Adjust for text height
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let startColor = [255, 250, 250]; // Snow
+        let endColor = [245, 172, 0];   // EMBO Yellow
+
+        function interpolateColor(startColor, endColor, factor) {
+            return [
+                Math.round(startColor[0] + factor * (endColor[0] - startColor[0])),
+                Math.round(startColor[1] + factor * (endColor[1] - startColor[1])),
+                Math.round(startColor[2] + factor * (endColor[2] - startColor[2]))
+            ];
+        }
+
+        function drawCircleProgress(progress) {
+            const radius = Math.min(canvas.width, canvas.height) / 2 - 10;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const color = interpolateColor(startColor, endColor, progress);
+            const colorHex = `rgb(${color[0]},${color[1]},${color[2]})`;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = colorHex;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + progress * 2 * Math.PI);
+            ctx.lineTo(centerX, centerY);
+            ctx.fill();
+        }
+
+        function calculateCurrentSession(schedule) {
+            const now = new Date();
+            const elapsedTimeSeconds = Math.floor((now - startTime) / 1000); // Total elapsed time in seconds
+            let accumulatedSeconds = 0;
+
+            for (let i = 0; i < schedule.length; i++) {
+                accumulatedSeconds += schedule[i].duration * 60;
+                if (elapsedTimeSeconds < accumulatedSeconds) {
+                    const elapsedWithinSession = elapsedTimeSeconds - (accumulatedSeconds - schedule[i].duration * 60);
+                    return { sessionIndex: i, elapsedWithinSession };
+                }
+            }
+
+            return { sessionIndex: schedule.length - 1, elapsedWithinSession: schedule[schedule.length - 1].duration * 60 };
+        }
+
+        function startScheduleFromCurrentSession(schedule) {
+            const result = calculateCurrentSession(schedule);
+            const sessionIndex = result.sessionIndex;
+            const elapsedWithinSession = result.elapsedWithinSession;
+
+            // Skip sessions that have already passed
+            for (let i = 0; i < sessionIndex; i++) {
+                schedule.shift();
+            }
+
+            if (schedule.length > 0) {
+                updateTimer(schedule[0].duration, schedule[0].annotation, elapsedWithinSession, schedule);
+            } else {
+                textContainer.innerHTML = `${meetingName} Finished!`;
+            }
+        }
+
+        function startInitialCountdown(schedule) {
+            const interval = setInterval(() => {
+                const now = new Date();
+                const timeDiff = startTime - now;
+
+                if (timeDiff <= 0) {
+                    clearInterval(interval);
+                    startScheduleFromCurrentSession(schedule);
+                    return;
+                }
+
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                let countdownText = `${meetingName} starts in `;
+
+                if (days > 0) {
+                    countdownText += `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                } else {
+                    countdownText += `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+
+                textContainer.innerHTML = countdownText;
+            }, 1000);
+        }
+
+        function updateTimer(duration, annotation, elapsedSeconds, schedule) {
+            let totalSeconds = Math.round(duration * 60);
+            let elapsed = elapsedSeconds;
+
+            const interval = setInterval(() => {
+                elapsed++;
+                const progress = elapsed / totalSeconds;
+                drawCircleProgress(progress);
+
+                const mins = Math.floor((totalSeconds - elapsed) / 60);
+                const secs = (totalSeconds - elapsed) % 60;
+                textContainer.innerHTML = `${annotation}<br>${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                if (elapsed >= totalSeconds) {
+                    clearInterval(interval);
+                    textContainer.innerHTML = `${annotation}<br>Time's up!`;
+                    endSound.play(); // Play sound at the end of the session
+                    setTimeout(() => nextSession(schedule), 1000);
+                }
+
+                if (elapsed >= totalSeconds - 5) {
+                    const flashColor = elapsed % 2 === 0 ? "white" : "black";
+                    document.body.style.backgroundColor = flashColor;
+                    textContainer.style.backgroundColor = "black";
+                } else {
+                    document.body.style.backgroundColor = "black";
+                }
+            }, 1000);
+        }
+
+        function nextSession(schedule) {
+            if (schedule.length > 0) {
+                const { duration, annotation } = schedule.shift();
+                updateTimer(duration, annotation, 0, schedule);
+            } else {
+                textContainer.innerHTML = `${meetingName} Finished!`;
+            }
+        }
+
+        // Start the initial countdown with the first schedule
+        startInitialCountdown(schedule);
+
+    </script>
+</body>
+</html>

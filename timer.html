@@ -55,7 +55,7 @@
         const meetingName = "EMBO Genome Integrity Meeting";
         const startTime = new Date("2024-09-04T08:00:00+03:00"); // Conference start time (Turkey time)
         // const startTime = new Date("2024-08-28T08:00:00+03:00"); // Conference start time (Turkey time)
-        const schedule = [
+        const originalSchedule = [
             {"duration": 45, "annotation": "Breakfast at Campus Cafeteria"},
             {"duration": 15, "annotation": "Registration (FENS G032)"},
             {"duration": 10, "annotation": "Opening (Host: Ogün Adebali)"},
@@ -133,7 +133,6 @@
             {"duration": 12, "annotation": "Concluding comments and departures"}
         ];
 
-
         const canvas = document.getElementById("progressCanvas");
         const ctx = canvas.getContext("2d");
         const textContainer = document.getElementById("textContainer");
@@ -195,13 +194,8 @@
             const sessionIndex = result.sessionIndex;
             const elapsedWithinSession = result.elapsedWithinSession;
 
-            // Skip sessions that have already passed
-            for (let i = 0; i < sessionIndex; i++) {
-                schedule.shift();
-            }
-
-            if (schedule.length > 0) {
-                updateTimer(schedule[0].duration, schedule[0].annotation, elapsedWithinSession, schedule);
+            if (sessionIndex < schedule.length) {
+                updateTimer(schedule[sessionIndex].duration, schedule[sessionIndex].annotation, elapsedWithinSession, sessionIndex, schedule);
             } else {
                 textContainer.innerHTML = `${meetingName} Finished!`;
             }
@@ -235,7 +229,7 @@
             }, 1000);
         }
 
-        function updateTimer(duration, annotation, elapsedSeconds, schedule) {
+        function updateTimer(duration, annotation, elapsedSeconds, sessionIndex, schedule) {
             let totalSeconds = Math.round(duration * 60);
             let elapsed = elapsedSeconds;
 
@@ -252,7 +246,7 @@
                     clearInterval(interval);
                     textContainer.innerHTML = `${annotation}<br>Time's up!`;
                     endSound.play(); // Play sound at the end of the session
-                    setTimeout(() => nextSession(schedule), 1000);
+                    setTimeout(() => nextSession(sessionIndex + 1, schedule), 1000);
                 }
 
                 if (elapsed >= totalSeconds - 5) {
@@ -265,17 +259,17 @@
             }, 1000);
         }
 
-        function nextSession(schedule) {
-            if (schedule.length > 0) {
-                const { duration, annotation } = schedule.shift();
-                updateTimer(duration, annotation, 0, schedule);
+        function nextSession(sessionIndex, schedule) {
+            if (sessionIndex < schedule.length) {
+                const { duration, annotation } = schedule[sessionIndex];
+                updateTimer(duration, annotation, 0, sessionIndex, schedule);
             } else {
                 textContainer.innerHTML = `${meetingName} Finished!`;
             }
         }
 
         // Start the initial countdown with the first schedule
-        startInitialCountdown(schedule);
+        startInitialCountdown(originalSchedule);
 
     </script>
 </body>
